@@ -137,6 +137,8 @@ int main(int argc, char **argv) {
 	char clientKey[PATH_MAX + 1];
 	char CurrentWD[PATH_MAX + 1];
 	char cPayload[100];
+ 
+  char sTime[1000];
 
 	int32_t i = 0;
 
@@ -244,7 +246,7 @@ int main(int argc, char **argv) {
 		}
 
 		IOT_INFO("-->sleep");
-		sleep(1);
+		sleep(1);//!! A METTRE A 60 (1 MINUTE) POUR LE PRODUIT FINAL!!
 		paramsQOS0.payloadLen = strlen(cPayload);
 		rc = aws_iot_mqtt_publish(&client, "sdkTest/sub", 11, &paramsQOS0);
 		if(publishCount > 0) {
@@ -260,12 +262,20 @@ int main(int argc, char **argv) {
 		fclose(thermal);
 		systemp = millideg / 1000;
 
-		time_t t;   // not a primitive datatype
-    	time(&t);
+		/*time_t t;   // not a primitive datatype
+    time(&t);*/
+  
+    time_t t = time(NULL);
+    struct tm * p = localtime(&t);
 
-		//sprintf(cPayload,"{\n timestamp : %s Celsius : %f\n Kelvin : %f\n}",ctime(&t),systemp, (systemp + 273.15));
+    strftime(sTime, 1000, "%B %d %Y %X", p);
 
-		sprintf(cPayload,"timestamp : %scelsius : %f",ctime(&t),systemp);
+    //printf("%s\n", s);
+
+
+		//sprintf(cPayload,"timestamp : %scelsius : %f",ctime(&t),systemp);
+
+		sprintf(cPayload,"{\n\"time\" : \"%s\",\n\"temp\" : \"%f\"\n}",sTime,systemp);
 		paramsQOS1.payloadLen = strlen(cPayload);
 		rc = aws_iot_mqtt_publish(&client, "sdkTest/sub", 11, &paramsQOS1);
 		if (rc == MQTT_REQUEST_TIMEOUT_ERROR) {
