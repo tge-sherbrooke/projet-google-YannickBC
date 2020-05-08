@@ -274,6 +274,7 @@ int main(int argc, char **argv) {
 
 
 		//sprintf(cPayload,"timestamp : %scelsius : %f",ctime(&t),systemp);
+   
 
 		sprintf(cPayload,"{\n\"time\" : \"%s\",\n\"temp\" : \"%f\"\n}",sTime,systemp);
 		paramsQOS1.payloadLen = strlen(cPayload);
