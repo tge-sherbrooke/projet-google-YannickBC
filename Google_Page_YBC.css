@@ -9,6 +9,10 @@ body {
     width: 100%;
   }
   
+  nav {
+    font-size: 13px;
+  }
+
   ul {
     list-style: none;
   }
@@ -83,6 +87,15 @@ body {
     text-align: center;
     padding-top: 30px;
     margin-bottom: 465px;
+  }
+
+  .buttons input {
+    border: none;
+    background-color: #f2f2f2;
+    padding: 0 16px;
+    line-height: 27px;
+    height: 36px;
+    min-width: 54px;
   }
   
   footer  {
