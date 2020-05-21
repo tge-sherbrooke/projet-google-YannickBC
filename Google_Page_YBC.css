@@ -72,6 +72,8 @@ body {
     width: 450px;
     line-height: 32px;
     padding: 20px 10px;
+    border-radius: 25px;
+    border: 1px solid #dfe1e5;
   }
   
   .form #form-search {
